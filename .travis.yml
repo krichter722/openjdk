@@ -1,0 +1,14 @@
+language: c
+sudo: required
+
+services:
+- docker
+
+jobs:
+  include:
+  - script: docker run ubuntu:16.04 /bin/sh -c "sed -i '/^#\sdeb-src /s/^#//' /etc/apt/sources.list && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get build-dep --yes openjdk-8 && apt-get install --yes git openjdk-8-jdk software-properties-common && add-apt-repository ppa:linuxuprising/java --yes && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install --yes oracle-java10-installer && git clone --depth 50 --recurse-submodules --branch=$TRAVIS_BRANCH https://github.com/$TRAVIS_REPO_SLUG.git && cd openjdk && bash ./configure --with-boot-jdk=/usr/lib/jvm/java-8-openjdk-amd64 && make -j && make -j check && make install"
+  - script: docker run ubuntu:17.10 /bin/sh -c "sed -i '/^#\sdeb-src /s/^#//' /etc/apt/sources.list && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get build-dep --yes openjdk-8 && apt-get install --yes git openjdk-8-jdk software-properties-common && add-apt-repository ppa:linuxuprising/java --yes && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install --yes oracle-java10-installer && git clone --depth 50 --recurse-submodules --branch=$TRAVIS_BRANCH https://github.com/$TRAVIS_REPO_SLUG.git && cd openjdk && bash ./configure --with-boot-jdk=/usr/lib/jvm/java-8-openjdk-amd64 && make -j && make -j check && make install"
+  - script: docker run ubuntu:18.04 /bin/sh -c "sed -i '/^#\sdeb-src /s/^#//' /etc/apt/sources.list && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get build-dep --yes openjdk-8 && apt-get install --yes git openjdk-8-jdk software-properties-common && add-apt-repository ppa:linuxuprising/java --yes && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install --yes oracle-java10-installer && git clone --depth 50 --recurse-submodules --branch=$TRAVIS_BRANCH https://github.com/$TRAVIS_REPO_SLUG.git && cd openjdk && bash ./configure --with-boot-jdk=/usr/lib/jvm/java-8-openjdk-amd64 && make -j && make -j check && make install"
+  - script: docker run ubuntu:18.10 /bin/sh -c "sed -i '/^#\sdeb-src /s/^#//' /etc/apt/sources.list && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get build-dep --yes openjdk-8 && apt-get install --yes git openjdk-8-jdk software-properties-common && add-apt-repository ppa:linuxuprising/java --yes && apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install --yes oracle-java10-installer && git clone --depth 50 --recurse-submodules --branch=$TRAVIS_BRANCH https://github.com/$TRAVIS_REPO_SLUG.git && cd openjdk && bash ./configure --with-boot-jdk=/usr/lib/jvm/java-8-openjdk-amd64 && make -j && make -j check && make install"
+# unclear why `sed -i '/^#\sdeb-src /s/^#//' "/etc/apt/sources.list"` is only necessary for 14.04/trusty
+
